@@ -26,11 +26,11 @@
 
 ## 使用技術
 
-- PHP
-- Laravel
+- PHP 8.1.34
+- Laravel 8.83.8
 - jquery
-- MySQL
-- nginx
+- MySQL 8.0.26
+- nginx 1.21.1
 
 ## ER図
 

@@ -1,0 +1,81 @@
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 5px;
+}
+
+.buttons button {
+    padding: 6px 12px;
+}
+
+.middle-area {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* エクスポートボタン */
+.export-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: #3490dc;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* ページネーションを右寄せ */
+.pagination-area {
+    text-align: right;
+}
+
+
+.contacts-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.contacts-table__inner {
+    width: 100%;
+    min-width: 800px;
+
+    border-collapse: collapse;
+}
+
+.contacts-table__header,
+.contacts-table__item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.contacts-table__header {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.detail-form__button {
+    width: 50px;
+    text-align: right;
+}
+
+.contacts-table__detail{
+    background-color: #3490dc;
+    display: flex;
+    justify-content: center;
+}
+

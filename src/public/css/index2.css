@@ -1,0 +1,132 @@
+.header {
+    text-align: center;
+}
+
+.header__inner {
+    margin: 0 auto;
+    padding: 20px 15px;
+    max-width: 1230px;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+.header__logo {
+    color: #000;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.contact-form__content {
+    margin: 0 auto;
+    padding: 30px 15px;
+    max-width: 1230px;
+}
+
+.contact-form__heading {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.form {
+    margin: 0 auto;
+    width: 70%;
+    text-align: center;
+}
+
+.form__group {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.form__group-title{
+    width: 200px;
+    text-align: left;
+}
+
+.form__label--required {
+    margin-left: 5px;
+    padding: 4px 6px;
+    border-radius: 3px;
+
+    color: #ff0000;
+}
+
+.form__error {
+    height: 20px;
+    color: #ff0000;
+    text-align: left;
+}
+
+.form__group-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__group-radio{
+    display: flex;
+}
+
+.form__input--name input {
+    padding: 10px;
+    width: 295px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+
+    appearance: none;
+    background: #fafafa;
+}
+
+.form__input--tel input {
+    padding: 10px;
+    width: 190px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+
+    appearance: none;
+    background: #fafafa;
+}
+
+.form__type-select {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+
+    background: #fafafa;
+}
+
+.form__input--text input,
+.form__input--textarea textarea {
+    padding: 10px;
+    width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+
+    appearance: none;
+    background: #fafafa;
+}
+
+.form__input--text input {
+    height: 40px;
+}
+
+.form__input--textarea textarea {
+    height: 180px;
+}
+
+.form__button {
+    margin-top: 30px;
+}
+
+.form__button-submit {
+    padding: 10px;
+    width: 30%;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
