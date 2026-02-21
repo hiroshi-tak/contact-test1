@@ -13,3 +13,6 @@ Route::post('/thanks', [ContactController::class, 'store']);
 //Route::middleware('auth')->group(function () {
     Route::get('/admin', [AuthController::class, 'admin']);
 //});
+
+Route::get('/contacts/{id}', [AuthController::class, 'show'])->name('contacts.show');
+Route::delete('/contacts/{id}', [AuthController::class, 'destroy'])->name('contacts.destroy');
