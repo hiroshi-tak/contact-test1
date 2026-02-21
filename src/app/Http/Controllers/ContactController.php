@@ -17,20 +17,30 @@ class ContactController extends Controller
 
     public function confirm(Request $request)
     {
-        $tel = $request->input('tel1') . '-' . $request->input('tel2') . '-' . $request->input('tel3');
-        $contact = $request->only(['first_name', 'last_name', 'gender', 'email', 'address', 'building','category_id','detail']);
-        return view('confirm', compact('contact','tel'));
+        // 修正ボタン
+        if ($request->input('action') === 'back') {
+            return redirect()
+                ->route('contact.index')
+                ->withInput($request->all());
+        }
+
+        // 送信ボタン
+        if ($request->input('action') === 'submit') {
+            return $this->store($request);
+        }
+
+        $contact = $request->all();
+        $categories = Category::all();
+
+        return view('confirm', compact('contact', 'categories'));
     }
 
     public function store(Request $request)
     {
-/*
 
-        $contact = $request->only(['gender', 'email', 'tel','address', 'building','detail']);
-        Contact::create($contact);
-*/
         [$last_name, $first_name] = explode('　', $request->name);
-
+        $tel = $request->input('tel1') . '-' . $request->input('tel2') . '-' . $request->input('tel3');
+/*
         $genderMap = [
             '男性' => 1,
             '女性' => 2,
@@ -38,7 +48,7 @@ class ContactController extends Controller
         ];
 
         $genderNumber = $genderMap[$request->gender];
-
+*/
         $form = [
             'name' => $request->name,
             'age' => $request->age,
@@ -46,9 +56,9 @@ class ContactController extends Controller
             'category_id' => $request->category_id,
             'first_name' => $first_name,
             'last_name' => $last_name,
-            'gender' => $genderNumber,
+            'gender' => $request->gender,
             'email' => $request->email,
-            'tel' => $request->tel,
+            'tel' => $tel,
             'address' => $request->address,
             'building' => $request->building,
             'detail' => $request->detail,

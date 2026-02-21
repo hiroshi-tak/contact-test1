@@ -14,15 +14,11 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <a class="header__logo" href="/">
-                FashionablyLate
-            </a>
-            @if (Auth::check())
+            FashionablyLate
             <form class="form" action="/logout" method="post">
                 @csrf
-                <button class="header-nav__button">logout</button>
+                <button type="submit">logout</button>
             </form>
-            @endif
         </div>
     </header>
 
@@ -32,7 +28,7 @@
                 <h2>Admin</h2>
             </div>
             <div>
-            <form class="search-form" action="{{ route('contacts.search') }}" method="get">
+            <form class="search-form" action="{{ route('admin.search') }}" method="get">
                 <div class="form-group">
                     <input type="text" name="name" placeholder="名前やメールアドレスを入力してください" value="{{ old('name') }}">
                 </div>
@@ -57,13 +53,13 @@
                 </div>
                 <div class="form-group buttons">
                     <button type="submit">検索</button>
-                    <a href="{{ route('contacts.reset') }}" class="btn btn-outline-secondary">リセット</a>
+                    <a href="{{ route('admin.reset') }}" class="btn btn-outline-secondary">リセット</a>
                 </div>
             </form>
             <div class="middle-area">
 
                 <div class="export">
-                    <a href="" class="export-btn">エクスポート</a>
+                    <a href="{{ route('admin.export', request()->query()) }}" class="export-btn">エクスポート</a>
                 </div>
 
                 <div class="pagination-area">
