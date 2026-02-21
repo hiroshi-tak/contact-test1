@@ -11,8 +11,9 @@ Route::post('/thanks', [ContactController::class, 'store']);
 
 /* ADMIN */
 //Route::middleware('auth')->group(function () {
-    Route::get('/admin', [AuthController::class, 'admin']);
+    Route::get('/admin', [AuthController::class, 'admin'])->name('contacts.index');
 //});
-
-Route::get('/contacts/{id}', [AuthController::class, 'show'])->name('contacts.show');
-Route::delete('/contacts/{id}', [AuthController::class, 'destroy'])->name('contacts.destroy');
+Route::get('/search', [AuthController::class, 'search'])->name('contacts.search');
+Route::get('/reset', [AuthController::class, 'reset'])->name('contacts.reset');
+Route::get('/delete/{id}', [AuthController::class, 'show'])->name('contacts.show');
+Route::delete('/delete/{id}', [AuthController::class, 'destroy'])->name('contacts.destroy');

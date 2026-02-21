@@ -32,32 +32,32 @@
                 <h2>Admin</h2>
             </div>
             <div>
-            <form class="search-form">
+            <form class="search-form" action="{{ route('contacts.search') }}" method="get">
                 <div class="form-group">
-                    <input type="text" name="name">
+                    <input type="text" name="name" placeholder="名前やメールアドレスを入力してください" value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
                     <select name="gender">
-                        <option value="">選択</option>
-                        <option value="male">男性</option>
-                        <option value="female">女性</option>
-                        <option value="female">その他</option>
+                        <option value="" hidden>性別</option>
+                        <option value="1">男性</option>
+                        <option value="2">女性</option>
+                        <option value="3">その他</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <select name="category_id">
-                        <option value="">問い合わせの種類</option>
-                        <option value="male">男性</option>
-                        <option value="female">女性</option>
-                        <option value="female">その他</option>
+                        <option value="" hidden>お問い合わせの種類</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category['id'] }}">{{ $category['content'] }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="date" name="date">
+                    <input type="date" name="date" value="{{ old('date') }}">
                 </div>
                 <div class="form-group buttons">
                     <button type="submit">検索</button>
-                    <button type="reset">リセット</button>
+                    <a href="{{ route('contacts.reset') }}" class="btn btn-outline-secondary">リセット</a>
                 </div>
             </form>
             <div class="middle-area">
@@ -81,7 +81,7 @@
                         <th class="contacts-table__header"></th>
                     </tr>
                     @foreach ($contacts as $contact)
-                    <tr class="contacts-table__row">
+                    <tr id="contactRow{{ $contact->id }}" class="contacts-table__row">
                         <td class="contacts-table__item">
                             {{ $contact->last_name }} {{ $contact->first_name }}
                         </td>
@@ -135,19 +135,20 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-
-    let currentContactId = null; // 現在表示中のIDを保持
+    let currentContactId = null;
+    const modalEl = document.getElementById('contactModal');
+    const modal = new bootstrap.Modal(modalEl);
 
     document.querySelectorAll('.btn-detail').forEach(button => {
         button.addEventListener('click', function() {
             currentContactId = this.dataset.id;
 
-            fetch(`/contacts/${currentContactId}`)
+            fetch(`/delete/${currentContactId}`)
                 .then(res => res.json())
                 .then(data => {
                     // 性別番号を文字列に変換
                     let genderText = '';
-                    switch(data.gender){
+                    switch(Number(data.gender)){
                         case 1: genderText = '男性'; break;
                         case 2: genderText = '女性'; break;
                         case 3: genderText = 'その他'; break;
@@ -157,26 +158,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     // モーダルにテーブル表示
                     document.getElementById('modalBody').innerHTML = `
                         <dl class="row">
-                        <dt class="col-sm-4">名前</dt>
-                        <dd class="col-sm-8">${data.last_name} ${data.first_name}</dd>
-                        <dt class="col-sm-4">性別</dt>
-                        <dd class="col-sm-8">${genderText}</dd>
-                        <dt class="col-sm-4">メールアドレス</dt>
-                        <dd class="col-sm-8">${data.email}</dt>
-                        <dt class="col-sm-4">電話番号</dt>
-                        <dd class="col-sm-8">${data.tel}</dt>
-                        <dt class="col-sm-4">住所</dt>
-                        <dd class="col-sm-8">${data.address}</dt>
-                        <dt class="col-sm-4">建物名</dt>
-                        <dd class="col-sm-8">${data.building}</dt>
-                        <dt class="col-sm-4">お問い合わせの種類</dt>
-                        <dt class="col-sm-8">${data.category}</dt>
-                        <dt class="col-sm-4">お問い合わせ内容</dt>
-                        <dd class="col-sm-8">${data.detail}</dt>
+                            <dt class="col-sm-4">名前</dt><dd class="col-sm-8">${data.last_name} ${data.first_name}</dd>
+                            <dt class="col-sm-4">性別</dt><dd class="col-sm-8">${genderText}</dd>
+                            <dt class="col-sm-4">メールアドレス</dt><dd class="col-sm-8">${data.email}</dd>
+                            <dt class="col-sm-4">電話番号</dt><dd class="col-sm-8">${data.tel}</dd>
+                            <dt class="col-sm-4">住所</dt><dd class="col-sm-8">${data.address}</dd>
+                            <dt class="col-sm-4">建物名</dt><dd class="col-sm-8">${data.building}</dd>
+                            <dt class="col-sm-4">お問い合わせの種類</dt><dd class="col-sm-8">${data.category}</dd>
+                            <dt class="col-sm-4">お問い合わせ内容</dt><dd class="col-sm-8">${data.detail}</dd>
                         </dl>
                     `;
 
-                    new bootstrap.Modal(document.getElementById('contactModal')).show();
+                    modal.show();
                 });
         });
     });
@@ -184,10 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 削除ボタン
     document.getElementById('deleteButton').addEventListener('click', function() {
         if(!currentContactId) return;
-
         if(!confirm('本当に削除しますか？')) return;
 
-        fetch(`/contacts/${currentContactId}`, {
+        fetch(`/delete/${currentContactId}`, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -199,15 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // テーブルから行を削除
                 const row = document.getElementById('contactRow' + currentContactId);
                 if(row) row.remove();
-
-                // モーダルを閉じる
-                bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+                modal.hide();
             } else {
                 alert('削除に失敗しました');
             }
         });
     });
-
 });
 </script>
 

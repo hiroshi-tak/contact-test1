@@ -79,14 +79,3 @@
     justify-content: center;
 }
 
-/* モーダル */
-.modal-header {
-    border-bottom: none;
-    /* ヘッダー下の線を消す */
-}
-
-.modal-footer {
-    border-top: none;
-    /* フッター上の線を消す */
-}
-
