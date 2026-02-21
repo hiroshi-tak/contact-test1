@@ -45,11 +45,10 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-        // ここで LogoutResponse をカスタマイズ
         $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
             public function toResponse($request)
             {
-                return redirect('/login'); // ログアウト後に /login へ
+                return redirect('/login');
             }
         });
     }
