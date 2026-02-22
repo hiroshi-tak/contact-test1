@@ -15,7 +15,6 @@ class ContactsTableSeeder extends Seeder
      */
     public function run()
     {
-        Contact::factory()->count(35)->create();
         /*
         $param = [
             'category_id'=> '1',
@@ -27,8 +26,12 @@ class ContactsTableSeeder extends Seeder
             'address'    => 'あ',
             'building'   => 'あ',
             'detail'     => 'あ',
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
         DB::table('contacts')->insert($param);
         */
+
+        Contact::factory()->count(35)->create();
     }
 }

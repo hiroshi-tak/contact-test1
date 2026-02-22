@@ -16,16 +16,20 @@ class ContactFactory extends Factory
     {
 
         return [
-            'first_name' => $this->Name(),
-            'last_name'  => $this->Name(),
-            'gender'     => $this->numberBetween(1, 3),
-            'email'      => $this->unique()->safeEmail(),
-            'tel'        => $this->phoneNumber(),
-            'address'    => $this->city() ,
+            //'category_id'=> $this->faker->numberBetween(1, 3),
+            'category_id'=> \App\Models\Category::inRandomOrder()->first()->id,
+            'first_name' => $this->faker->firstName(),
+            'last_name'  => $this->faker->lastName(),
+            'gender'     => $this->faker->numberBetween(1, 3),
+            'email'      => $this->faker->unique()->safeEmail(),
+            'tel'        => $this->faker->numerify('0##-####-####'),
+            'address'    => $this->faker->city() ,
             'building'   => $this->faker->country,
-            'detail'     => $this->text(100),
+            'detail'     => $this->faker->text(100),
+            //'created_at' => $this->faker->dateTimeThisYear(),
+            //'updated_at' => $this->faker->dateTimeThisYear(),
         ];
-        DB::table('contacts')->insert($param);
+
     }
 
 }

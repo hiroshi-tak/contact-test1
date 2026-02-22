@@ -10,9 +10,9 @@ Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.co
 Route::post('/thanks', [ContactController::class, 'store'])->name('contact.store');
 
 /* ADMIN */
-//Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/admin', [AuthController::class, 'admin'])->name('contacts.index');
-//});
+});
 Route::get('/search', [AuthController::class, 'search'])->name('admin.search');
 Route::get('/reset', [AuthController::class, 'reset'])->name('admin.reset');
 Route::get('/delete/{id}', [AuthController::class, 'show'])->name('admin.show');

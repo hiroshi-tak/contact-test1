@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 
@@ -15,7 +16,7 @@ class ContactController extends Controller
         return view('index', compact('categories'));
     }
 
-    public function confirm(Request $request)
+    public function confirm(ContactRequest $request)
     {
         // 修正ボタン
         if ($request->input('action') === 'back') {
@@ -35,7 +36,7 @@ class ContactController extends Controller
         return view('confirm', compact('contact', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
 
         [$last_name, $first_name] = explode('　', $request->name);
