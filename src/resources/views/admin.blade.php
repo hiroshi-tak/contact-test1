@@ -14,10 +14,10 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            FashionablyLate
-            <form class="form" action="/logout" method="post">
+            <div class="header__logo">FashionablyLate</div>
+            <form class="header__logout" action="/logout" method="post">
                 @csrf
-                <button type="submit">logout</button>
+                <button class="header__logout--submit" type="submit">logout</button>
             </form>
         </div>
     </header>
@@ -30,7 +30,9 @@
             <div>
             <form class="search-form" action="{{ route('admin.search') }}" method="get">
                 <div class="form-group">
+                    <div class="form-text--name">
                     <input type="text" name="name" placeholder="名前やメールアドレスを入力してください" value="{{ old('name') }}">
+                    </div>
                 </div>
                 <div class="form-group">
                     <select name="gender">
@@ -51,9 +53,9 @@
                 <div class="form-group">
                     <input type="date" name="date" value="{{ old('date') }}">
                 </div>
-                <div class="form-group buttons">
-                    <button type="submit">検索</button>
-                    <a href="{{ route('admin.reset') }}" class="btn btn-outline-secondary">リセット</a>
+                <div class="form-buttons">
+                    <button class="form-button--submit" type="submit">検索</button>
+                    <a href="{{ route('admin.reset') }}" class="form-button--reset">リセット</a>
                 </div>
             </form>
             <div class="middle-area">
@@ -62,9 +64,16 @@
                     <a href="{{ route('admin.export', request()->query()) }}" class="export-btn">エクスポート</a>
                 </div>
 
-                <div class="pagination-area">
-                    <label>ページネーション</label>
-                    {{ $contacts->links() }}
+                <div class="pagination-wrapper ">
+                    <a href="{{ $contacts->url(1) }}" class="page-link">&lt;</a>
+                    @foreach ($contacts->getUrlRange(1, $contacts->lastPage()) as $page => $url)
+                        @if ($page == $contacts->currentPage())
+                        <span class="page-link active">{{ $page }}</span>
+                        @else
+                        <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                        @endif
+                    @endforeach
+                    <a href="{{ $contacts->url($contacts->lastPage()) }}" class="page-link">&gt;</a>
                 </div>
             </div>
             <div class="contacts-table">
@@ -99,12 +108,10 @@
                             @endphp
                             {{ $category->content }}
                         </td>
-                        <td class="contacts-table__detail">
-
-                            <button type="button" class="btn btn-primary btn-detail" data-id="{{ $contact->id }}">
-                            詳細
-                            </button>
-
+                        <td class="contacts-table__item">
+                                <button type="button" class="contacts-table_btn-detail" data-id="{{ $contact->id }}">
+                                詳細
+                                </button>
                         </td>
                     </tr>
                     @endforeach
@@ -135,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalEl = document.getElementById('contactModal');
     const modal = new bootstrap.Modal(modalEl);
 
-    document.querySelectorAll('.btn-detail').forEach(button => {
+    document.querySelectorAll('.contacts-table_btn-detail').forEach(button => {
         button.addEventListener('click', function() {
             currentContactId = this.dataset.id;
 

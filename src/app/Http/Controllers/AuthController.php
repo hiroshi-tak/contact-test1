@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function admin()
     {
-        $contacts = Contact::simplePaginate(10);
+        $contacts = Contact::Paginate(10);
         //$contacts = Contact::Paginate(10);
         //$contacts = Contact::all();
         $categories = Category::all();
@@ -42,7 +42,7 @@ class AuthController extends Controller
             $query->whereDate('created_at', $request->date);
         }
 
-        $contacts = $query->simplePaginate(10)->appends($request->query());
+        $contacts = $query->Paginate(10)->appends($request->query());
 
         $categories = Category::all();
 

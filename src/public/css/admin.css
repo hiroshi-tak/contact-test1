@@ -1,15 +1,75 @@
+.header__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px 15px;
+    max-width: 1230px;
+    margin: 0 auto;
+}
+
+.header__logo {
+    font-family: "Century", "Century Gothic", serif;
+    font-weight: normal;
+    font-size: 32px;
+    text-align: center;
+    flex: 1;
+}
+
+.header__logout {
+    position: absolute;
+    right: 15px;
+}
+
+.header__logout--submit {
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+.header__logout--submit:hover {
+    background-color: blue;
+    color: white;
+}
+
+.admin-form__content {
+    max-width: 1230px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+.admin-form__heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-form__heading h2 {
+    font-family: "Century", "Century Gothic", serif;
+    font-size: 28px;
+    margin: 0;
+}
+
 .search-form {
     display: flex;
-    align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+    max-width: 1230px;
+    margin: 0 auto 30px auto;
+}
+
+.search-form input,
+.search-form select {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .form-group {
+    flex: 1 1 200px;
     display: flex;
-    align-items: center;
-    gap: 5px;
+    flex-direction: column;
 }
 
 .form-group input,
@@ -17,8 +77,42 @@
     padding: 5px;
 }
 
-.buttons button {
-    padding: 6px 12px;
+.form-text--name input {
+    max-width: 500px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    /*flex-wrap: nowrap;*/
+    margin-left: auto;
+}
+
+.form-button--submit {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-button--reset{
+    background-color: #8B4513;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .middle-area {
@@ -28,21 +122,40 @@
     align-items: center;
 }
 
-/* エクスポートボタン */
 .export-btn {
     display: inline-block;
     padding: 6px 14px;
-    background-color: #3490dc;
-    color: #fff;
+    background-color: lightgray;
     text-decoration: none;
     border-radius: 4px;
 }
 
-/* ページネーションを右寄せ */
-.pagination-area {
-    text-align: right;
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    /* 中央寄せ */
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
+.pagination-wrapper .page-link {
+    display: inline-block;
+    padding: 2px 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #000;
+    min-width: 25px;
+    min-height: 25px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.pagination-wrapper .page-link.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
 
 .contacts-table {
     width: 100%;
@@ -68,14 +181,19 @@
     font-weight: bold;
 }
 
-.detail-form__button {
-    width: 50px;
-    text-align: right;
-}
-
-.contacts-table__detail{
-    background-color: #3490dc;
+.contacts-table__item:last-child {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
+
+.contacts-table_btn-detail{
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+
 

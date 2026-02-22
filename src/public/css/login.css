@@ -1,17 +1,60 @@
-.login-form__content {
-    margin: 0 auto;
-    padding: 30px 15px;
-    max-width: 1230px;
+.register__link {
+    margin-left: auto;
+}
+
+.register__button-submit {
+    text-decoration: none;
+    padding: 8px 18px;
+    background-color: lightgray;
+    color:black;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.register__button-submit:hover {
+    background-color: blue;
+    color: white;
+}
+
+main {
+    min-height: 100vh;
+    background-color: #f2f1ef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
 }
 
 .login-form__heading {
-    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
     text-align: center;
+    margin-bottom: 20px;
+    color: #7a6f66;
+    font-family: "Century", "Century Gothic", serif;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.login-form__heading h2 {
+    font-family: "Century", "Century Gothic", serif;
+    font-weight: normal;
+    font-size: 28px;
+    margin: 0;
+}
+
+.login-form__content {
+    background-color: #fff;
+    padding: 60px 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 500px;
 }
 
 .form {
     margin: 0 auto;
-    width: 25%;
+    width: 100%;
     text-align: center;
 }
 
@@ -54,7 +97,3 @@
     cursor: pointer;
 }
 
-.register__link {
-    margin-top: 20px;
-    text-align: center;
-}
