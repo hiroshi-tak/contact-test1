@@ -1,126 +1,117 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Form</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+@endsection
 
-<body>
-    <header class="header">
-        <div class="header__inner">
-            <div class="header__logo">FashionablyLate</div>
-            <form class="header__logout" action="/logout" method="post">
-                @csrf
-                <button class="header__logout--submit" type="submit">logout</button>
-            </form>
-        </div>
-    </header>
 
-    <main>
-        <div class="admin-form__content">
-            <div class="admin-form__heading">
-                <h2>Admin</h2>
-            </div>
-            <div>
-            <form class="search-form" action="{{ route('admin.search') }}" method="get">
-                <div class="form-group">
-                    <div class="form-text--name">
-                    <input type="text" name="name" placeholder="名前やメールアドレスを入力してください" value="{{ old('name') }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <select name="gender">
-                        <option value="" hidden>性別</option>
-                        <option value="1">男性</option>
-                        <option value="2">女性</option>
-                        <option value="3">その他</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select name="category_id">
-                        <option value="" hidden>お問い合わせの種類</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category['id'] }}">{{ $category['content'] }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="date" name="date" value="{{ old('date') }}">
-                </div>
-                <div class="form-buttons">
-                    <button class="form-button--submit" type="submit">検索</button>
-                    <a href="{{ route('admin.reset') }}" class="form-button--reset">リセット</a>
-                </div>
-            </form>
-            <div class="middle-area">
+@section('login')
+<form class="header__logout" action="/logout" method="post">
+    @csrf
+    <button class="header__logout--submit" type="submit">logout</button>
+</form>
+@endsection
 
-                <div class="export">
-                    <a href="{{ route('admin.export', request()->query()) }}" class="export-btn">エクスポート</a>
-                </div>
-
-                <div class="pagination-wrapper ">
-                    <a href="{{ $contacts->url(1) }}" class="page-link">&lt;</a>
-                    @foreach ($contacts->getUrlRange(1, $contacts->lastPage()) as $page => $url)
-                        @if ($page == $contacts->currentPage())
-                        <span class="page-link active">{{ $page }}</span>
-                        @else
-                        <a href="{{ $url }}" class="page-link">{{ $page }}</a>
-                        @endif
-                    @endforeach
-                    <a href="{{ $contacts->url($contacts->lastPage()) }}" class="page-link">&gt;</a>
-                </div>
-            </div>
-            <div class="contacts-table">
-                <table class="contacts-table__inner">
-                    <tr class="contacts-table__row">
-                        <th class="contacts-table__header">お名前</th>
-                        <th class="contacts-table__header">性別</th>
-                        <th class="contacts-table__header">メールアドレス</th>
-                        <th class="contacts-table__header">お問い合わせの種類</th>
-                        <th class="contacts-table__header"></th>
-                    </tr>
-                    @foreach ($contacts as $contact)
-                    <tr id="contactRow{{ $contact->id }}" class="contacts-table__row">
-                        <td class="contacts-table__item">
-                            {{ $contact->last_name }} {{ $contact->first_name }}
-                        </td>
-                        <td class="contacts-table__item">
-                            @if($contact->gender == 1)
-                                男性
-                            @elseif($contact->gender == 2)
-                                女性
-                            @else
-                                その他
-                            @endif
-                        </td>
-                        <td class="contacts-table__item">
-                            {{ $contact->email }}
-                        </td>
-                        <td class="contacts-table__item">
-                            @php
-                                $category = $categories->firstWhere('id', $contact->category_id);
-                            @endphp
-                            {{ $category->content }}
-                        </td>
-                        <td class="contacts-table__item">
-                                <button type="button" class="contacts-table_btn-detail" data-id="{{ $contact->id }}">
-                                詳細
-                                </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+@section('content')
+<div class="admin-form__content">
+    <div class="admin-form__heading">
+        <h2>Admin</h2>
+    </div>
+    <div>
+    <form class="search-form" action="{{ route('admin.search') }}" method="get">
+        <div class="form-group">
+            <div class="form-text--name">
+            <input type="text" name="name" placeholder="名前やメールアドレスを入力してください" value="{{ old('name') }}">
             </div>
         </div>
-    </main>
+        <div class="form-group">
+            <select name="gender">
+                <option value="" hidden>性別</option>
+                <option value="1">男性</option>
+                <option value="2">女性</option>
+                <option value="3">その他</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select name="category_id">
+                <option value="" hidden>お問い合わせの種類</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category['id'] }}">{{ $category['content'] }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="date" name="date" value="{{ old('date') }}">
+        </div>
+        <div class="form-buttons">
+            <button class="form-button--submit" type="submit">検索</button>
+            <a href="{{ route('admin.reset') }}" class="form-button--reset">リセット</a>
+        </div>
+    </form>
+    <div class="middle-area">
 
-<!-- モーダル -->
+        <div class="export">
+            <a href="{{ route('admin.export', request()->query()) }}" class="export-btn">エクスポート</a>
+        </div>
+
+        <div class="pagination-wrapper ">
+            <a href="{{ $contacts->url(1) }}" class="page-link">&lt;</a>
+            @foreach ($contacts->getUrlRange(1, $contacts->lastPage()) as $page => $url)
+                @if ($page == $contacts->currentPage())
+                <span class="page-link active">{{ $page }}</span>
+                @else
+                <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                @endif
+            @endforeach
+            <a href="{{ $contacts->url($contacts->lastPage()) }}" class="page-link">&gt;</a>
+        </div>
+    </div>
+    <div class="contacts-table">
+        <table class="contacts-table__inner">
+            <tr class="contacts-table__row">
+                <th class="contacts-table__header">お名前</th>
+                <th class="contacts-table__header">性別</th>
+                <th class="contacts-table__header">メールアドレス</th>
+                <th class="contacts-table__header">お問い合わせの種類</th>
+                <th class="contacts-table__header"></th>
+            </tr>
+            @foreach ($contacts as $contact)
+            <tr id="contactRow{{ $contact->id }}" class="contacts-table__row">
+                <td class="contacts-table__item">
+                    {{ $contact->last_name }} {{ $contact->first_name }}
+                </td>
+                <td class="contacts-table__item">
+                    @if($contact->gender == 1)
+                        男性
+                    @elseif($contact->gender == 2)
+                        女性
+                    @else
+                        その他
+                    @endif
+                </td>
+                <td class="contacts-table__item">
+                    {{ $contact->email }}
+                </td>
+                <td class="contacts-table__item">
+                    @php
+                        $category = $categories->firstWhere('id', $contact->category_id);
+                    @endphp
+                    {{ $category->content }}
+                </td>
+                <td class="contacts-table__item">
+                        <button type="button" class="contacts-table_btn-detail" data-id="{{ $contact->id }}">
+                        詳細
+                        </button>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+</div>
+@endsection
+
+@section('modal')
 <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -135,7 +126,9 @@
         </div>
     </div>
 </div>
+@endsection
 
+@section('script')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let currentContactId = null;
@@ -204,6 +197,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+@endsection

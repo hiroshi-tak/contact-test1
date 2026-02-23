@@ -5,9 +5,9 @@
 @endsection
 
 @section('login')
-  <div class="login__link">
-    <a class="login__button-submit" href="/login">login</a>
-  </div>
+<div class="login__link">
+  <a class="login__button-submit" href="/login">login</a>
+</div>
 @endsection
 
 @section('content')

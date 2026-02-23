@@ -22,6 +22,8 @@
     <main>
         @yield('content')
     </main>
+    @yield('modal')
+    @yield('script')
 </body>
 
 </html>

@@ -28,7 +28,7 @@
 
 - PHP 8.1.34
 - Laravel 8.83.8
-- jquery
+- Bootstrap 5.3.2
 - MySQL 8.0.26
 - nginx 1.21.1
 

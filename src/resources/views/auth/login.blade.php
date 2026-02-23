@@ -5,9 +5,9 @@
 @endsection
 
 @section('login')
-  <div class="register__link">
-    <a class="register__button-submit" href="/register">register</a>
-  </div>
+<div class="register__link">
+  <a class="register__button-submit" href="/register">register</a>
+ </div>
 @endsection
 
 @section('content')
