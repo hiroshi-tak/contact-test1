@@ -14,9 +14,7 @@ class ContactFactory extends Factory
      */
     public function definition()
     {
-
         return [
-            //'category_id'=> $this->faker->numberBetween(1, 3),
             'category_id'=> \App\Models\Category::inRandomOrder()->first()->id,
             'first_name' => $this->faker->firstName(),
             'last_name'  => $this->faker->lastName(),
@@ -26,10 +24,6 @@ class ContactFactory extends Factory
             'address'    => $this->faker->city() ,
             'building'   => $this->faker->country,
             'detail'     => $this->faker->text(100),
-            //'created_at' => $this->faker->dateTimeThisYear(),
-            //'updated_at' => $this->faker->dateTimeThisYear(),
         ];
-
     }
-
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/index2.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 @endsection
 
 @section('content')
@@ -80,32 +80,23 @@
                 <div class="form__input--tel">
                     <div class="form__input-block">
                         <input type="tel" name="tel1" placeholder="080"  value="{{ old('tel1')}}" />
-                        <div class="form__error">
-                        @error('tel1')
-                        {{ $message }}
-                        @enderror
-                        </div>
                     </div>
                     <span>-</span>
                     <div class="form__input-block">
                         <input type="tel" name="tel2" placeholder="1234" value="{{ old('tel2')}}" />
-                        <div class="form__error">
-                            @error('tel2')
-                            {{ $message }}
-                            @enderror
-                        </div>
                     </div>
                     <span>-</span>
                     <div class="form__input-block">
                         <input type="tel" name="tel3" placeholder="5678" value="{{ old('tel3')}}" />
-                        <div class="form__error">
-                            @error('tel3')
-                            {{ $message }}
-                            @enderror
-                        </div>
                     </div>
                 </div>
+                @if ($errors->has('tel1') || $errors->has('tel2') || $errors->has('tel3'))
+                    <div class="form__error">
+                    {{ $errors->first('tel1') ?: $errors->first('tel2') ?: $errors->first('tel3') }}
+                    </div>
+                @endif
             </div>
+
         </div>
         <div class="form__group">
             <div class="form__group-title">
@@ -126,6 +117,7 @@
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">建物名</span>
+                <span class="form__label--required"></span>
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">

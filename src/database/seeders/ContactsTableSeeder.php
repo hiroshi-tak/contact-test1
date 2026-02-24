@@ -15,23 +15,6 @@ class ContactsTableSeeder extends Seeder
      */
     public function run()
     {
-        /*
-        $param = [
-            'category_id'=> '1',
-            'first_name' => 'tony',
-            'last_name'  => 'tony',
-            'gender'     => '1',
-            'email'      => 'test@test',
-            'tel'        => '111-1111-1111',
-            'address'    => 'あ',
-            'building'   => 'あ',
-            'detail'     => 'あ',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ];
-        DB::table('contacts')->insert($param);
-        */
-
         Contact::factory()->count(35)->create();
     }
 }

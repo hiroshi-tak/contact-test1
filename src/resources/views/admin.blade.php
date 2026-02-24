@@ -130,6 +130,7 @@
 
 @section('script')
 <script>
+//モーダル
 document.addEventListener('DOMContentLoaded', function() {
     let currentContactId = null;
     const modalEl = document.getElementById('contactModal');
@@ -191,6 +192,27 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 alert('削除に失敗しました');
             }
+        });
+    });
+});
+
+//列単位のホバー
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.querySelector('.contacts-table__inner');
+    const headers = table.querySelectorAll('th');
+
+    headers.forEach((th, index) => {
+        th.addEventListener('mouseover', () => {
+        table.querySelectorAll(`tr`).forEach(tr => {
+            const cell = tr.children[index];
+            if (cell) cell.style.backgroundColor = '#fff000';
+        });
+        });
+        th.addEventListener('mouseout', () => {
+        table.querySelectorAll(`tr`).forEach(tr => {
+            const cell = tr.children[index];
+            if (cell) cell.style.backgroundColor = '';
+        });
         });
     });
 });

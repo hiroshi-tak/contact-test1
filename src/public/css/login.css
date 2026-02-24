@@ -70,6 +70,7 @@ main {
     height: 20px;
     color: #ff0000;
     text-align: left;
+    white-space: nowrap;
 }
 
 .form__input--text input {

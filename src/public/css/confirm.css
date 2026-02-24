@@ -95,3 +95,21 @@
 .form__button--back:hover {
     opacity: 0.7;
 }
+
+@media (max-width: 600px) {
+
+    .form__group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form__group-title {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .form__group-content {
+        width: 100%;
+        display: block;
+    }
+}
